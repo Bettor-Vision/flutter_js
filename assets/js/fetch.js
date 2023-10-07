@@ -1,22 +1,29 @@
+// TODO: Copy the fetch stuff over from the iOS function
+
 function fetch(url, options) {
 	options = options || {};
-	return new Promise( (resolve, reject) => {
+	return new Promise((resolve, reject) => {
 		const request = new XMLHttpRequest();
 		const keys = [];
 		const all = [];
 		const headers = {};
 
 		const response = () => ({
-			ok: (request.status/100|0) == 2,		// 200-299
+			ok: (request.status / 100 | 0) == 2,		// 200-299
 			statusText: request.statusText,
 			status: request.status,
 			url: request.responseURL,
 			text: () => Promise.resolve(request.responseText),
-			json: () => { 
+			json: () => {
+				const isError = (request.status / 100 | 0) == 2;
 				// TODO: review this handle because it may discard \n from json attributes
 				try {
 					// console.log('RESPONSE TEXT IN FETCH: ' + request.responseText);
-					return Promise.resolve(JSON.parse(request.responseText));
+					return Promise.resolve({
+						'data': request.responseText,
+						'status': request.status ?? 500,
+						'headers': request.headers ?? nil,
+					});
 				} catch (e) {
 					// console.log('ERROR on fetch parsing JSON: ' + e.message);
 					return Promise.resolve(request.responseText);
@@ -45,7 +52,7 @@ function fetch(url, options) {
 
 		request.onerror = reject;
 
-		request.withCredentials = options.credentials=='include';
+		request.withCredentials = options.credentials == 'include';
 
 		if (options.headers) {
 			if (options.headers.constructor.name == 'Object') {
