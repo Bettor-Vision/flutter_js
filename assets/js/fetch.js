@@ -19,6 +19,7 @@ function fetch(url, options) {
 				console.log(`Type of data: ${typeof request.responseText}`);
 				let headersStr = request.getAllResponseHeaders();
 				console.log(`ALL Headers: ${headersStr}`);
+				console.log(`Funny Headers: ${JSON.stringify(headers)}`);
 				console.log(`Headers on the request object: ${request.headers}\n${JSON.stringify(request.headers)}`);
 				console.log(`[FETCH] Text response do be firing: ${JSON.stringify(request.responseText)}`);
 				return Promise.resolve({
@@ -54,6 +55,8 @@ function fetch(url, options) {
 		});
 
 		request.open(options.method || 'get', url, true);
+
+		console.log(`Passed Options: ${JSON.stringify(options)}`);
 
 		request.onload = () => {
 			request.getAllResponseHeaders().replace(/^(.*?):[^\S\n]*([\s\S]*?)$/gm, (m, key, value) => {
