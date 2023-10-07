@@ -3,6 +3,10 @@
 function fetch(url, options) {
 	options = options || {};
 	return new Promise((resolve, reject) => {
+		if (url.includes('datadog')) {
+			resolve(null);
+			return;
+		}
 		globalResolve = resolve;
 		globalReject = reject;
 		globalTest = () => console.log('we global');
