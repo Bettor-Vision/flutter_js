@@ -17,7 +17,11 @@ function fetch(url, options) {
 			url: request.responseURL,
 			text: () => {
 				console.log(`[FETCH] Text response do be firing: ${request.responseText}`);
-				return Promise.resolve(request.responseText);
+				return Promise.resolve({
+					'data': `${request.responseText}`,
+					'status': request.status ?? 500,
+					'headers': request.headers ?? nil,
+				});
 			},
 			json: () => {
 				console.log(`[FETCH] JSON response do be firing: ${request.responseText}`);
