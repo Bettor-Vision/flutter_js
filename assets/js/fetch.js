@@ -20,7 +20,7 @@ function fetch(url, options) {
 				return Promise.resolve({
 					'data': `${request.responseText}`,
 					'status': request.status ?? 500,
-					'headers': request.headers ?? nil,
+					'headers': request.headers ?? null,
 				});
 			},
 			json: () => {
@@ -32,7 +32,7 @@ function fetch(url, options) {
 					return Promise.resolve({
 						'data': request.responseText,
 						'status': request.status ?? 500,
-						'headers': request.headers ?? nil,
+						'headers': request.headers ?? null,
 					});
 				} catch (e) {
 					// console.log('ERROR on fetch parsing JSON: ' + e.message);
