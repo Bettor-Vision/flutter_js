@@ -16,9 +16,13 @@ function fetch(url, options) {
 			status: request.status,
 			url: request.responseURL,
 			text: () => {
-				console.log(`[FETCH] Text response do be firing: ${request.responseText}`);
+				console.log(`Type of data: ${typeof request.responseText}`);
+				let headersStr = request.getAllResponseHeaders();
+				console.log(`ALL Headers: ${headersStr}`);
+				console.log(`Headers on the request object: ${request.headers}\n${JSON.stringify(request.headers)}`);
+				console.log(`[FETCH] Text response do be firing: ${JSON.stringify(request.responseText)}`);
 				return Promise.resolve({
-					'data': `${request.responseText}`,
+					'data': `${JSON.stringify(request.responseText)}`,
 					'status': request.status ?? 500,
 					'headers': request.headers ?? null,
 				});
