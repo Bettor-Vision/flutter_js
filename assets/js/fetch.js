@@ -8,13 +8,19 @@ function fetch(url, options) {
 		const all = [];
 		const headers = {};
 
+		console.log('[FETCH] We in this bitch');
+
 		const response = () => ({
 			ok: (request.status / 100 | 0) == 2,		// 200-299
 			statusText: request.statusText,
 			status: request.status,
 			url: request.responseURL,
-			text: () => Promise.resolve(request.responseText),
+			text: () => {
+				console.log(`[FETCH] Text response do be firing: ${request.responseText}`);
+				return Promise.resolve(request.responseText);
+			},
 			json: () => {
+				console.log(`[FETCH] JSON response do be firing: ${request.responseText}`);
 				const isError = (request.status / 100 | 0) == 2;
 				// TODO: review this handle because it may discard \n from json attributes
 				try {
