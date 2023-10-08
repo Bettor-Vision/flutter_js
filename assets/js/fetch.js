@@ -24,7 +24,7 @@ function fetch(url, options) {
 				const isError = (request.status / 100 | 0) == 2;
 				// TODO: review this handle because it may discard \n from json attributes
 				try {
-					// console.log('RESPONSE TEXT IN FETCH: ' + request.responseText);
+					console.log('RESPONSE TEXT IN FETCH: ' + request.responseText);
 					return Promise.resolve({
 						'data': request.responseText,
 						'status': request.status ?? 500,
