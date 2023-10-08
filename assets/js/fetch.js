@@ -9,7 +9,7 @@ function fetch(url, options) {
 		}
 		globalResolve = resolve;
 		globalReject = reject;
-		globalTest = () => console.log('we global');
+		console.log('[JS]: Setting Resolve');
 		sendMessage('perform_fetch', JSON.stringify({ url, options }));
 		// const request = new XMLHttpRequest();
 		// const keys = [];
