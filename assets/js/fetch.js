@@ -26,7 +26,7 @@ function fetch(url, options) {
 						'headers': request.headers || null,
 					});
 				} catch (e) {
-					// console.log('ERROR on fetch parsing JSON: ' + e.message);
+					console.log('ERROR on fetch parsing text: ' + e.message);
 					return Promise.resolve(request.responseText);
 				}
 			},
@@ -43,11 +43,14 @@ function fetch(url, options) {
 						'headers': request.headers || null,
 					});
 				} catch (e) {
-					// console.log('ERROR on fetch parsing JSON: ' + e.message);
+					console.log('ERROR on fetch parsing JSON: ' + e.message);
 					return Promise.resolve(request.responseText);
 				}
 			},
-			blob: () => Promise.resolve(new Blob([request.response])),
+			blob: () => {
+				console.log('BLOBBBBBBED');
+				Promise.resolve(new Blob([request.response]));
+			},
 			clone: response,
 			headers: {
 				keys: () => keys,
