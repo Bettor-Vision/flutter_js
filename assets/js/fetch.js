@@ -24,11 +24,12 @@ function fetch(url, options) {
 				const isError = (request.status / 100 | 0) == 2;
 				// TODO: review this handle because it may discard \n from json attributes
 				try {
-					console.log('RESPONSE TEXT IN FETCH: ' + request.responseText);
+					const coolerResponseText = request.responseText.replace(/"/g, '\\"');
+					console.log('RESPONSE TEXT IN FETCH: ' + coolerResponseText);
 					return Promise.resolve({
-						'data': request.responseText,
-						'status': request.status ?? 500,
-						'headers': request.headers ?? nil,
+						'data': coolerResponseText,
+						'status': request.status || 500,
+						'headers': request.headers || null,
 					});
 				} catch (e) {
 					// console.log('ERROR on fetch parsing JSON: ' + e.message);
