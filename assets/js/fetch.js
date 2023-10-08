@@ -20,14 +20,18 @@ function fetch(url, options) {
 				try {
 					const coolerResponseText = request.responseText.replace(/"/g, '\\"');
 					console.log('RESPONSE TEXT IN FETCH: ' + coolerResponseText);
-					return Promise.resolve({
+					return {
 						'data': coolerResponseText,
 						'status': request.status || 500,
 						'headers': request.headers || null,
-					});
+					};
 				} catch (e) {
 					console.log('ERROR on fetch parsing text: ' + e.message);
-					return Promise.resolve(request.responseText);
+					return {
+						'data': request.responseText,
+						'status': request.status || 500,
+						'headers': request.headers || null,
+					};;
 				}
 			},
 			json: () => {
@@ -37,11 +41,11 @@ function fetch(url, options) {
 				try {
 					const coolerResponseText = request.responseText.replace(/"/g, '\\"');
 					console.log('RESPONSE TEXT IN FETCH: ' + coolerResponseText);
-					return Promise.resolve({
+					return {
 						'data': coolerResponseText,
 						'status': request.status || 500,
 						'headers': request.headers || null,
-					});
+					};
 				} catch (e) {
 					console.log('ERROR on fetch parsing JSON: ' + e.message);
 					return Promise.resolve(request.responseText);
