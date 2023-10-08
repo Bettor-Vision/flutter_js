@@ -17,7 +17,18 @@ function fetch(url, options) {
 			url: request.responseURL,
 			text: () => {
 				console.log(`[FETCH] Text response do be firing: ${request.responseText}`);
-				return Promise.resolve(request.responseText);
+				try {
+					const coolerResponseText = request.responseText.replace(/"/g, '\\"');
+					console.log('RESPONSE TEXT IN FETCH: ' + coolerResponseText);
+					return Promise.resolve({
+						'data': coolerResponseText,
+						'status': request.status || 500,
+						'headers': request.headers || null,
+					});
+				} catch (e) {
+					// console.log('ERROR on fetch parsing JSON: ' + e.message);
+					return Promise.resolve(request.responseText);
+				}
 			},
 			json: () => {
 				console.log(`[FETCH] JSON response do be firing: ${request.responseText}`);
